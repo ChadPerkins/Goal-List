@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     // Check to see if the user already exists
-    const userExists = await User.findOne({email});
+    const userExists = await User.findOne({ email });
     if(userExists) {
         res.status(400);
         throw new Error('User already exists');
@@ -63,13 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const getMe = asyncHandler(async (req, res) => {
-    const { _id, name, email } = await User.findById(req.user.id);
-
-    res.status(200).json({
-        id: _id,
-        name,
-        email
-    });
+    res.status(200).json(req.user);
 });
 
 // Generate JWT
